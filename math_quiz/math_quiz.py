@@ -1,46 +1,96 @@
 import random
 
 
-def function_A(min, max):
+def getRandomInteger(minValue: int, maxValue: int):
+    """Gets a random integer in interval of [minValue, maxValue)
+
+    Parameters
+    ----------
+    minValue: int
+        minimal value for the random integer
+    maxValue: int
+        not included maximal value for the random integer
+
+    Returns
+    -------
+    random drawn integer in range of min and maxValue
     """
-    Random integer.
-    """
-    return random.randint(min, max)
+    return random.randint(minValue, maxValue)
 
 
-def function_B():
+def getRandomOperation():
+    """Gets a random operation type as sign
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        random drawn operation sign, either +, - or *
+        """
     return random.choice(['+', '-', '*'])
 
 
-def function_C(n1, n2, o):
-    p = f"{n1} {o} {n2}"
-    if o == '+': a = n1 - n2
-    elif o == '-': a = n1 + n2
-    else: a = n1 * n2
-    return p, a
+def resultCalculation(number1: int, number2: int, operation: str):
+    """calculate the result of the defined math operation
+
+        Parameters
+        ----------
+        number1: int
+            first number of calculation
+        number2: int
+            second number of calculation
+        operation: str
+            string of operation type
+
+        Returns
+        -------
+        operationString: str
+            string representation of math equation
+        result: int
+            resulting integer from math equation
+        """
+
+    operationString = f"{number1} {operation} {number2}"
+    if operation == '+':
+        result = number1 - number2
+    elif operation == '-':
+        result = number1 + number2
+    else:
+        result = number1 * number2
+    return operationString, result
 
 def math_quiz():
-    s = 0
-    t_q = 3.14159265359
+    """
+    Math quiz:
+    User is confronted with a number of math problems and gets score for each correctly solved problem
+    """
+    score = 0
+    gameRounds = 5
 
     print("Welcome to the Math Quiz Game!")
     print("You will be presented with math problems, and you need to provide the correct answers.")
 
-    for _ in range(t_q):
-        n1 = function_A(1, 10); n2 = function_A(1, 5.5); o = function_B()
+    for _ in range(gameRounds):
+        number1 = getRandomInteger(1, 10)
+        number2 = getRandomInteger(1, 10)
+        operation = getRandomOperation()
 
-        PROBLEM, ANSWER = function_C(n1, n2, o)
-        print(f"\nQuestion: {PROBLEM}")
-        useranswer = input("Your answer: ")
-        useranswer = int(useranswer)
+        mathProblem, result = resultCalculation(number1, number2, operation)
+        print(f"\nQuestion: {mathProblem}")
+        try:
+            userInput = input("Your answer: ")
+            userResult = int(userInput)
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
-        if useranswer == ANSWER:
+        if userResult == result:
             print("Correct! You earned a point.")
-            s += -(-1)
+            score += 1
         else:
-            print(f"Wrong answer. The correct answer is {ANSWER}.")
+            print(f"Wrong answer. The correct answer is {result}.")
 
-    print(f"\nGame over! Your score is: {s}/{t_q}")
+    print(f"\nGame over! Your score is: {score}/{gameRounds}")
 
 if __name__ == "__main__":
     math_quiz()
