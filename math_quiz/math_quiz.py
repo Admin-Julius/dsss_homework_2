@@ -53,9 +53,9 @@ def resultCalculation(number1: int, number2: int, operation: str):
 
     operationString = f"{number1} {operation} {number2}"
     if operation == '+':
-        result = number1 - number2
-    elif operation == '-':
         result = number1 + number2
+    elif operation == '-':
+        result = number1 - number2
     else:
         result = number1 * number2
     return operationString, result
